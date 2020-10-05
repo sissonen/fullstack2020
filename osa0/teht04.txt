@@ -1,0 +1,28 @@
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+note over palvelin:
+Palvelin vastaanottaa form-datan,
+suorittaa datan käsittelevän koodin ja
+palauttaa selaimelle status-koodin sekä
+pyynnön uudelleenohjauksesta.
+end note
+palvelin-->selain: status 302 + redirect osoitteeseen /example_app/notes
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/example_app/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+
+note over selain:
+Selain suorittaa javascriptin,
+joka pyytää JSON-datan palvelimelta.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: data.json-tiedoston sisältö
+
+note over selain:
+Selain suorittaa onreadystatechange-tapahtumankäsittelijän
+koodin, joka tulostaa muistiinpanot selaimeen lisäämällä
+elementtejä HTML-koodiin.
+end note
