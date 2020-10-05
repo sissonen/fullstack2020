@@ -1,0 +1,14 @@
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+note over selain:
+Selain lähettää formille syötetyn tekstin
+ja aikaleiman JSON-muodossa palvelimelle.
+Selaimen päässä myös liitetään syötetty teksti
+osaksi HTML-koodia.
+end note
+palvelin-->selain: status 201 + json: {"message":"note created"}
+
+note over selain:
+Selain suorittaa onreadystatechange-tapahtumankäsittelijän
+koodin, joka tulostaa selaimen console-logiin palvelimen
+palauttaman viestin.
+end note
