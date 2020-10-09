@@ -20,18 +20,21 @@ const Stats = ({good, neutral, bad}) => {
   if (good + neutral + bad === 0)
     return "No feedback given yet."
   return (
-    <>
+    <table>
+      <tbody>
+      <tr><th>Stat name</th><th>Amount</th></tr>
       <Stat name="good" counter={good} />
       <Stat name="neutral" counter={neutral} />
       <Stat name="bad" counter={bad} />
       <Stat name="all" counter={good + neutral + bad} />
       <Stat name="average" counter={avg()} />
       <Stat name="positive" counter={positive()} />
-    </>
+      </tbody>
+    </table>
   )
 }
 const Stat = ({name, counter}) => (
-  <div>{name}: {counter}</div>
+  <tr><td>{name}</td><td>{counter}</td></tr>
 )
 const Button = ({text, onClick}) => (
   <button onClick={onClick}>{text}</button>
