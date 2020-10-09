@@ -1,6 +1,35 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Stats = ({good, neutral, bad}) => {
+  const avg = () => {
+    if (good+neutral+bad === 0) {
+      return 0
+    } else {
+      return (good - bad) / (good+neutral+bad)
+    }
+  }
+  const positive = () => {
+    if (good+neutral+bad === 0) {
+      return 0
+    } else {
+      return ((good/(good + neutral + bad))*100) + "%"
+    }
+  }
+
+  if (good + neutral + bad === 0)
+    return "No feedback given yet."
+  return (
+    <>
+      <Stat name="good" counter={good} />
+      <Stat name="neutral" counter={neutral} />
+      <Stat name="bad" counter={bad} />
+      <Stat name="all" counter={good + neutral + bad} />
+      <Stat name="average" counter={avg()} />
+      <Stat name="positive" counter={positive()} />
+    </>
+  )
+}
 const Stat = ({name, counter}) => (
   <div>{name}: {counter}</div>
 )
@@ -18,21 +47,6 @@ const App = () => {
   const incNeutral = () => setNeutral(neutral + 1)
   const incBad = () => setBad(bad + 1)
 
-  const avg = () => {
-    if (good+neutral+bad === 0) {
-      return 0
-    } else {
-      return (good - bad) / (good+neutral+bad)
-    }
-  }
-  const positive = () => {
-    if (good+neutral+bad === 0) {
-      return 0
-    } else {
-      return ((good/(good + neutral + bad))*100) + "%"
-    }
-  }
-
   return (
     <div>
       <h2>Give feedback</h2>
@@ -40,12 +54,7 @@ const App = () => {
       <Button text="neutral" onClick={incNeutral} />
       <Button text="bad" onClick={incBad} />
       <h2>Stats</h2>
-      <Stat name="good" counter={good} />
-      <Stat name="neutral" counter={neutral} />
-      <Stat name="bad" counter={bad} />
-      <Stat name="all" counter={good + neutral + bad} />
-      <Stat name="average" counter={avg()} />
-      <Stat name="positive" counter={positive()} />
+      <Stats good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
