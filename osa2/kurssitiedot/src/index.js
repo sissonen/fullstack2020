@@ -6,6 +6,7 @@ const Course = ({ course }) => {
     <>
       <Header name={course.name} />
       <Content parts={course.parts} />
+      <div>Total of { course.parts.reduce((total, part) => total + part.exercises, 0) } exercises</div>
     </>
   )
 }
@@ -19,8 +20,6 @@ const Header = ({name}) => {
 }
 
 const Content = ({parts}) => {
-  console.log(parts)
-
   return (
     <>
       {parts.map((part) => <Part key={part.id} part={part} />) }
