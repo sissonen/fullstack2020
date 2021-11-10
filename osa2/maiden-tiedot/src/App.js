@@ -9,7 +9,7 @@ const App = () => {
   
   useEffect(() => {
     axios
-      .get('https://restcountries.eu/rest/v2/all')
+      .get('https://restcountries.com/v2/all')
       .then(response => {
         console.log(response.data)
         setCountries(response.data)
@@ -25,7 +25,7 @@ const App = () => {
   return (
     <div>
       Find countries: <input value={countryFilter} onChange={handleCountryFilterChange} />
-      <Countries countryList={countriesFiltered} />
+      <Countries countryList={countriesFiltered} setCountryFilter={setCountryFilter} />
     </div>
   )
 }

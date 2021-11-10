@@ -1,14 +1,20 @@
 import React from 'react'
 
-const Countries = ({countryList}) => {
-  const printCountries = (countryList) => {
+const Countries = ({countryList, setCountryFilter}) => {
+  
+  const printCountries = (countryList, setCountryFilter) => {
     if (countryList === undefined) {
       return (<div>Fetching countries.</div>)
     } else if (countryList.length > 10) {
       return (<div>Too many results!</div>)
     } else if (countryList.length <= 10 && countryList.length > 1) {
       return (
-        <div>{countryList.map(country => <li key={country.name}>{country.name}</li>)}</div>
+        <ul>{countryList.map(country => 
+            <li key={country.name}>
+                {country.name}
+                <button onClick={() => setCountryFilter(country.name)}>Show</button>
+            </li>)}
+        </ul>
       )
     } else if (countryList.length === 1) {
       console.log(countryList[0])
@@ -31,10 +37,11 @@ const Countries = ({countryList}) => {
       return (<div>No countries found.</div>)
     }
   }
+  
   return (
     <div>
       <ul>
-        {printCountries(countryList)}
+        {printCountries(countryList, setCountryFilter)}
       </ul>
     </div>
   )
