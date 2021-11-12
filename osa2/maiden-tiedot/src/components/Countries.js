@@ -1,13 +1,19 @@
 import React from 'react'
 
-const Countries = ({countryList, setCountryFilter}) => {
+import Weather from './Weather'
+
+const Countries = ({countryList, setCountryFilter, apiKey}) => {
   
-  const printCountries = (countryList, setCountryFilter) => {
     if (countryList === undefined) {
+      
       return (<div>Fetching countries.</div>)
+
     } else if (countryList.length > 10) {
+      
       return (<div>Too many results!</div>)
+
     } else if (countryList.length <= 10 && countryList.length > 1) {
+      
       return (
         <ul>{countryList.map(country => 
             <li key={country.name}>
@@ -16,9 +22,11 @@ const Countries = ({countryList, setCountryFilter}) => {
             </li>)}
         </ul>
       )
+
     } else if (countryList.length === 1) {
-      console.log(countryList[0])
+      //console.log(countryList[0])
       const country = countryList[0]
+      
       return (
         <div>
           <h2>{country.name}</h2>
@@ -31,20 +39,15 @@ const Countries = ({countryList, setCountryFilter}) => {
           <div>
             <img src={country.flag} alt="flag" height={200} />
           </div>
+          <Weather city={country.capital} apiKey={apiKey} />
         </div>
       )
+
     } else {
+      
       return (<div>No countries found.</div>)
+
     }
-  }
-  
-  return (
-    <div>
-      <ul>
-        {printCountries(countryList, setCountryFilter)}
-      </ul>
-    </div>
-  )
 }
 
 export default Countries
