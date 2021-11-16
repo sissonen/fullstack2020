@@ -13,10 +13,16 @@ const addPerson = newPerson => {
     .then(response => response.data)
 }
 
+const updatePerson = (id, newPerson) => {
+  return axios
+    .put(baseUrl + '/' + id, newPerson)
+    .then(response => response.data)
+}
+
 const removePerson = id => {
   return axios
     .delete(baseUrl + '/' + id)
     .then(response => response.data)
 }
 
-export default {getPersons, addPerson, removePerson}
+export default {getPersons, addPerson, updatePerson, removePerson}

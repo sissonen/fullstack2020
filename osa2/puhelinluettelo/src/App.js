@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -29,7 +28,19 @@ const App = () => {
           setPersons(persons.concat(returnedData))
         })
     } else {
-      window.alert(`Person "${newName}" is already added in the phonebook.`)
+      let existingPerson = persons.find(person => person.name === newName)
+      if (existingPerson.number !== newNumber) {
+        if (window.confirm('Person "' + newName + '" is already added in the phonebook. Would you like to update their phone number (' + existingPerson.number + ' -> ' + newNumber + ')?')) {
+          const updatedPerson = { ...existingPerson, number: newNumber }
+          personService
+            .updatePerson(existingPerson.id, updatedPerson)
+            .then(returnedData => {
+              setPersons(persons.map(person => person.id !== returnedData.id ? person : returnedData))
+            })
+        }
+      } else {
+        window.alert(`Person "${newName}" is already added in the phonebook.`)
+      }
     }
     setNewName('')
     setNewNumber('')
