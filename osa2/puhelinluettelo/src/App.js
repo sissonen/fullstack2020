@@ -35,6 +35,18 @@ const App = () => {
     setNewNumber('')
   }
 
+  const removePerson = (id) => {
+    let idToRemove = id
+    let personToRemove = persons.find(person => person.id === idToRemove)
+    if (window.confirm('Do you really want to remove "' + personToRemove.name + '" from the phonebook?')) {
+      personService
+        .removePerson(idToRemove)
+        .then(returnedData => {
+          setPersons(persons.filter(person => person.id !== idToRemove))
+        })
+    }
+  }
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
@@ -54,7 +66,7 @@ const App = () => {
       <PersonForm addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers:</h2>
         <Filter filter={filter} handleFilterChange={handleFilterChange} />
-        <Persons persons={personsFiltered} />
+        <Persons persons={personsFiltered} removePerson={removePerson}  />
     </div>
   )
 }
